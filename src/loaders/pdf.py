@@ -6,7 +6,7 @@ from langchain_community.document_loaders import UnstructuredPDFLoader
 
 class PDFLoader(BaseLoader):
 
-    def load(self, path: Path | str) -> Document:
+    def load(self, path: Path | str) -> list[Document]:
         loader = UnstructuredPDFLoader(
             file_path=path,
             mode="elements",

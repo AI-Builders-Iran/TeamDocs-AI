@@ -6,7 +6,7 @@ from langchain_core.documents import Document
 
 class MarkdownLoader(BaseLoader):
 
-    def load(self, path: Path) -> Document:
+    def load(self, path: Path) -> list[Document]:
         loader = UnstructuredMarkdownLoader(
             file_path=path,
             mode="elements")
