@@ -1,0 +1,26 @@
+from pathlib import Path
+
+from langchain_community.document_loaders import TextLoader as LCTextLoader
+
+
+class TypeScriptCodeLoader:
+    EXTENSIONS = {".ts", ".tsx"}
+    SKIP_DIRS = {".git", "env", "venv", ".venv", "node_modules", "dist", "build", ".next", ".idea"}
+
+    def load(self, path):
+        path = Path(path)
+        files = [path] if path.is_file() else sorted(
+            p for p in path.rglob("*")
+            if p.suffix.lower() in self.EXTENSIONS and not (self.SKIP_DIRS & set(p.parts))
+        )
+
+        docs = []
+        for file in files:
+            try:
+                loader = LCTextLoader(str(file), encoding="utf-8", autodetect_encoding=True)
+                for doc in loader.load():
+                    doc.metadata["language"] = "ts"
+                    docs.append(doc)
+            except Exception as e:
+                print(f"skip {file.name}: {e}")
+        return docs

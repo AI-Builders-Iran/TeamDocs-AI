@@ -2,3 +2,5 @@
 test/
 __pycache__/
 env/
+*.zip
+*.rar
