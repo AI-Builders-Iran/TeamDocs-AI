@@ -1,9 +1,9 @@
 from pathlib import Path
 from langchain_core.documents import Document
 from langchain_community.document_loaders import TextLoader as LCTextLoader
+from rag.loaders.base import BaseLoader
 
-
-class CppCodeLoader:
+class CppCodeLoader(BaseLoader):
     EXTENSIONS = {".c", ".h", ".cpp", ".cc", ".cxx", ".hpp", ".hh", ".hxx"}
 
     def load(self, path: str | Path) -> list[Document]:

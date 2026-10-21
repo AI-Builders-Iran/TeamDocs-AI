@@ -50,3 +50,4 @@ streamlit>=1.38
 
 langchain-core
 pdfminer-six
+beautifulsoup4

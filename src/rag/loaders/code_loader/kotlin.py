@@ -1,11 +1,11 @@
 from pathlib import Path
 
 from langchain_community.document_loaders import TextLoader as LCTextLoader
+from rag.loaders.base import BaseLoader
 
-
-class GoCodeLoader:
-    EXTENSIONS = {".go"}
-    SKIP_DIRS = {".git", "env", "venv", ".venv", "vendor", "bin", ".idea"}
+class KotlinCodeLoader(BaseLoader):
+    EXTENSIONS = {".kt", ".kts"}
+    SKIP_DIRS = {".git", "env", "venv", ".venv", "build", "out", ".gradle", ".idea"}
 
     def load(self, path):
         path = Path(path)
@@ -19,7 +19,7 @@ class GoCodeLoader:
             try:
                 loader = LCTextLoader(str(file), encoding="utf-8", autodetect_encoding=True)
                 for doc in loader.load():
-                    doc.metadata["language"] = "go"
+                    doc.metadata["language"] = "kotlin"
                     docs.append(doc)
             except Exception as e:
                 print(f"skip {file.name}: {e}")

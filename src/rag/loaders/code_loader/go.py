@@ -1,15 +1,11 @@
 from pathlib import Path
 
 from langchain_community.document_loaders import TextLoader as LCTextLoader
+from rag.loaders.base import BaseLoader
 
-
-class SQLCodeLoader:
-    EXTENSIONS = {".sql", ".ddl", ".psql", ".pgsql", ".mysql"}
-    SKIP_DIRS = {".git", "env", "venv", ".venv", "node_modules", "build", "dist", ".idea"}
-
-    def __init__(self, max_file_size=5_000_000):
-        # فایل‌های dump دیتابیس معمولاً خیلی بزرگ‌اند؛ بزرگ‌تر از این مقدار رد می‌شوند
-        self.max_file_size = max_file_size
+class GoCodeLoader(BaseLoader):
+    EXTENSIONS = {".go"}
+    SKIP_DIRS = {".git", "env", "venv", ".venv", "vendor", "bin", ".idea"}
 
     def load(self, path):
         path = Path(path)
@@ -20,13 +16,10 @@ class SQLCodeLoader:
 
         docs = []
         for file in files:
-            if file.stat().st_size > self.max_file_size:
-                print(f"skip {file.name}: file too large")
-                continue
             try:
                 loader = LCTextLoader(str(file), encoding="utf-8", autodetect_encoding=True)
                 for doc in loader.load():
-                    doc.metadata["language"] = "sql"
+                    doc.metadata["language"] = "go"
                     docs.append(doc)
             except Exception as e:
                 print(f"skip {file.name}: {e}")

@@ -1,4 +1,4 @@
-from .base import BaseLoader
+from rag.loaders.base import BaseLoader
 from pathlib import Path
 from langchain_core.documents import Document
 from langchain_community.document_loaders import UnstructuredPDFLoader
