@@ -15,7 +15,7 @@ from rag.loaders.code_loader.typescript import TypeScriptCodeLoader
 from rag.loaders.code_loader.html import HTMLFileLoader
 from rag.loaders.main_document.pptx import PPTXLoader
 from rag.loaders.code_loader.sql import SQLCodeLoader
-from rag.loaders.loader_pipelines.main_docs import MainDocsLoader
+from rag.loaders.pipeline import LoaderPipeline
 
 __all__ = [
     "PDFLoader",
@@ -35,5 +35,5 @@ __all__ = [
     "HTMLFileLoader",
     "SQLCodeLoader",
     "PPTXLoader",
-    "MainDocsLoader"
+    "LoaderPipeline"
 ]

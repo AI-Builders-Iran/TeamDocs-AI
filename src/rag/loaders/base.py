@@ -6,4 +6,4 @@ class BaseLoader(ABC):
     """a base class for all loaders"""
     @abstractmethod
     def load(self, path: Path | str)-> list[Document]:
-        raise NotImplementedError()
+        raise NotImplementedError
